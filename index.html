@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ASLAN Gewinnspiel</title>
+<meta name="description" content="Melde den Gewinncode deiner ASLAN Sammelkarte an und sei bei der Live-Verlosung dabei.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="logo.png">
+<style>
+/* Layout: eine schmale Spalte fuers Handy - Logo, Beispielkarte, Formular, Ablauf, Datenschutz.
+   Bewusst nur dunkel: schwarz-gold wie die Karte "Royal Schatz". Schriften liegen auf diesem Server. */
+@font-face { font-family: "Poppins"; font-weight: 400; font-display: swap; src: url(fonts/poppins-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 600; font-display: swap; src: url(fonts/poppins-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 700; font-display: swap; src: url(fonts/poppins-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 800; font-display: swap; src: url(fonts/poppins-latin-800-normal.woff2) format("woff2"); }
+@font-face { font-family: "Lilita One"; font-weight: 400; font-display: swap; src: url(fonts/lilita-one-latin-400-normal.woff2) format("woff2"); }
+:root {
+  color-scheme: dark;
+  --bg: #0b0710;
+  --panel: #17101d;
+  --field: #221829;
+  --gold: #e8b64a;
+  --gold-hi: #ffe08a;
+  --gold-dim: rgba(232, 182, 74, .35);
+  --ink: #f6eedc;
+  --muted: #b3a6bd;
+  --ok: #4fe0c8;
+  --bad: #ff5fae;
+  --f-display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --f-body: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+  background-image: radial-gradient(42rem 26rem at 50% -6rem, rgba(232,182,74,.16), transparent 70%); }
+main { max-width: 34rem; margin: 0 auto; padding-inline: 18px; padding-block: calc(env(safe-area-inset-top, 0px) + 20px) 40px; display: grid; gap: 26px; }
+.logo { display: block; width: min(78%, 300px); margin: 0 auto -4px; }
+h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(30px, 8vw, 40px); line-height: 1.1; margin: 0; text-align: center; letter-spacing: .01em; text-wrap: balance;
+  background: linear-gradient(180deg, #fff6cf 0%, var(--gold-hi) 40%, var(--gold) 75%, #c6871c 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.lead { margin: 6px 0 0; text-align: center; color: var(--muted); }
+.example { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 16px; align-items: center; }
+.cardpic { position: relative; }
+.cardpic img { width: 100%; height: auto; display: block; border-radius: 7px; box-shadow: 0 10px 24px rgba(0,0,0,.6), 0 0 0 1px var(--gold-dim); }
+.cardpic .ring { position: absolute; left: 20%; right: 20%; top: 86.4%; height: 7.8%; border: 2px solid var(--bad); border-radius: 999px;
+  box-shadow: 0 0 12px rgba(255,95,174,.7); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.08); opacity: .65; } }
+.example p { margin: 0; color: var(--muted); font-size: 15px; }
+.example b { color: var(--ink); }
+form { background: var(--panel); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 20px 18px; display: grid; gap: 16px; }
+label.f { display: grid; gap: 6px; font-weight: 600; font-size: 15px; }
+input[type=text], input[type=email] { width: 100%; font: inherit; font-size: 18px; padding: 13px 14px; border-radius: 11px;
+  border: 1px solid var(--gold-dim); background: var(--field); color: var(--ink); }
+#code { font-weight: 700; letter-spacing: .32em; text-transform: uppercase; text-align: center; font-size: 22px; }
+#code::placeholder { letter-spacing: .12em; font-weight: 400; font-size: 18px; color: var(--muted); }
+.small { font-size: 13px; color: var(--muted); font-weight: 400; }
+.consent { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; font-size: 14px; color: var(--ink); align-items: start; }
+.consent input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--gold); }
+button { appearance: none; border: 0; cursor: pointer; font-family: var(--f-display); font-size: 24px; padding: 14px 16px; border-radius: 12px; color: #2a1600;
+  background: linear-gradient(180deg, #fff3b8 0%, var(--gold-hi) 30%, var(--gold) 70%, #c98a1e 100%); box-shadow: 0 10px 24px rgba(232,182,74,.22); }
+button:disabled { filter: grayscale(.6) brightness(.7); cursor: wait; }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+.msg { border-radius: 12px; padding: 14px 16px; font-size: 15px; }
+.msg.ok { background: rgba(79,224,200,.1); border: 1px solid var(--ok); }
+.msg.ok strong { color: var(--ok); font-size: 18px; display: block; margin-bottom: 2px; }
+.msg.bad { background: rgba(255,95,174,.1); border: 1px solid var(--bad); }
+h2 { font-family: var(--f-display); font-weight: 400; font-size: 24px; margin: 0 0 8px; color: var(--gold-hi); letter-spacing: .01em; }
+ol.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: s; }
+ol.steps li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; counter-increment: s; }
+ol.steps li::before { content: counter(s); font-family: var(--f-display); font-size: 20px; width: 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--gold); color: #2a1600; }
+.privacy { background: var(--panel); border: 1px solid var(--gold-dim); border-radius: 16px; padding: 18px; font-size: 14px; color: var(--muted); }
+.privacy p { margin: 0 0 10px; }
+.privacy strong { color: var(--ink); font-weight: 600; }
+a { color: var(--gold-hi); }
+footer { text-align: center; font-size: 13px; color: var(--muted); display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
+@media (max-width: 360px) { .example { grid-template-columns: 100px minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .cardpic .ring { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img class="logo" src="logo.png" alt="ASLAN">
+    <h1>Gewinnspiel</h1>
+    <p class="lead">Melde den Gewinncode deiner ASLAN Sammelkarte an und sei bei der Live-Verlosung dabei.</p>
+  </header>
+
+  <section class="example" aria-label="Wo steht der Gewinncode?">
+    <div class="cardpic"><img src="karte-beispiel.jpg" width="600" height="982" alt="Beispielkarte, der Gewinncode steht unten unter DEIN GEWINNCODE"><span class="ring" aria-hidden="true"></span></div>
+    <p>Deinen Code findest du unten auf deiner Karte unter <b>„DEIN GEWINNCODE“</b>. Er hat 6 Zeichen aus Großbuchstaben und Zahlen. Jeder Code kann nur einmal angemeldet werden.</p>
+  </section>
+
+  <form id="form" novalidate>
+    <label class="f" for="code">Gewinncode
+      <input type="text" id="code" name="code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="z. B. AB3CDE" required>
+    </label>
+    <label class="f" for="email">E-Mail-Adresse <span class="small">Dahin schicken wir den Gutscheincode, falls du gewinnst.</span>
+      <input type="email" id="email" name="email" maxlength="200" autocomplete="email" inputmode="email" placeholder="name@beispiel.de" required>
+    </label>
+    <label class="consent" for="consent">
+      <input type="checkbox" id="consent" name="consent" required>
+      <span>Ich bin einverstanden, dass New Plastics meinen Gewinncode und meine E-Mail-Adresse für diese Verlosung speichert. Die E-Mail-Adresse wird nur genutzt, um mich im Gewinnfall zu benachrichtigen und mir den Gutscheincode zu schicken. Nach der Verlosung werden alle Daten gelöscht. Bei der Live-Ziehung wird keine E-Mail-Adresse gezeigt. Mehr dazu unten unter Datenschutz.</span>
+    </label>
+    <button type="submit" id="send">Code anmelden</button>
+    <div class="msg" id="msg" role="status" aria-live="polite" hidden></div>
+  </form>
+
+  <section>
+    <h2>So läuft die Verlosung</h2>
+    <ol class="steps">
+      <li><span>Du meldest hier den Gewinncode von deiner Karte an.</span></li>
+      <li><span>Wir ziehen den Gewinner live, zum Beispiel auf TikTok oder Discord. Dabei sieht man nur Kartennummer und Code, keine E-Mail-Adressen.</span></li>
+      <li><span>Der Gewinner bekommt den Gutscheincode per E-Mail. Danach löschen wir alle Anmeldedaten.</span></li>
+    </ol>
+  </section>
+
+  <section class="privacy" id="datenschutz">
+    <h2>Datenschutz</h2>
+    <p><strong>Verantwortlich:</strong> Marvin Jüssen, New Plastics, Quellenstraße 147, 53424 Remagen, <a href="mailto:kontakt@newplastics.de">kontakt@newplastics.de</a></p>
+    <p><strong>Was wir speichern:</strong> deinen Gewinncode, deine E-Mail-Adresse und den Zeitpunkt der Anmeldung.</p>
+    <p><strong>Wofür:</strong> nur für diese Verlosung, um den Gewinner zu benachrichtigen und ihm den Gutscheincode zu schicken. Keine Werbung, keine Weitergabe an andere.</p>
+    <p><strong>Rechtsgrundlage:</strong> deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Du kannst sie jederzeit per E-Mail an <a href="mailto:kontakt@newplastics.de">kontakt@newplastics.de</a> widerrufen, dann löschen wir deine Anmeldung.</p>
+    <p><strong>Wo:</strong> Die Anmeldungen liegen in einer Google-Tabelle von New Plastics; Google verarbeitet sie dabei in unserem Auftrag.</p>
+    <p><strong>Wie lange:</strong> bis die Verlosung abgeschlossen und der Gewinn verschickt ist. Danach löschen wir alle Anmeldedaten.</p>
+    <p><strong>Deine Rechte:</strong> Auskunft, Berichtigung, Löschung, Einschränkung, Widerruf und Beschwerde bei einer Datenschutz-Aufsichtsbehörde. Alles Weitere steht in unserer <a href="https://newplastics.de/policies/privacy-policy" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
+  </section>
+
+  <footer>
+    <a href="https://newplastics.de/policies/legal-notice" target="_blank" rel="noopener">Impressum</a>
+    <a href="https://newplastics.de/policies/privacy-policy" target="_blank" rel="noopener">Datenschutzerklärung</a>
+  </footer>
+</main>
+
+<script>
+const ENDPOINT = "";
+const form = document.getElementById("form"), msg = document.getElementById("msg"), send = document.getElementById("send");
+const codeIn = document.getElementById("code");
+codeIn.addEventListener("input", () => {
+  const v = codeIn.value.toUpperCase().replace(/[^0-9A-Z]/g, "").slice(0, 6);
+  if (v !== codeIn.value) codeIn.value = v;
+});
+function show(kind, html) { msg.className = "msg " + kind; msg.innerHTML = html; msg.hidden = false; }
+const TEXT = {
+  code: "Diesen Gewinncode kennen wir nicht. Prüf bitte jedes Zeichen auf deiner Karte. Die Codes enthalten kein 0, 1, O, I und L.",
+  doppelt: "Dieser Gewinncode ist schon angemeldet. Jeder Code zählt nur einmal.",
+  email: "Bitte gib eine gültige E-Mail-Adresse ein.",
+  einwilligung: "Bitte bestätige die Einwilligung, sonst können wir dich im Gewinnfall nicht erreichen.",
+  geschlossen: "Die Anmeldung ist geschlossen. Die Verlosung läuft gerade oder ist schon vorbei.",
+  anfrage: "Die Anmeldung hat nicht geklappt. Bitte versuch es gleich noch einmal."
+};
+if (!ENDPOINT) {
+  show("bad", "Die Anmeldung ist noch nicht freigeschaltet. Schau bitte später noch einmal vorbei.");
+  send.disabled = true;
+}
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!ENDPOINT) return;
+  const code = codeIn.value.trim(), email = document.getElementById("email").value.trim();
+  const einwilligung = document.getElementById("consent").checked;
+  if (code.length !== 6) return show("bad", "Der Gewinncode hat genau 6 Zeichen.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return show("bad", TEXT.email);
+  if (!einwilligung) return show("bad", TEXT.einwilligung);
+  send.disabled = true; send.textContent = "Wird angemeldet …";
+  try {
+    const r = await fetch(ENDPOINT, { method: "POST", body: JSON.stringify({ aktion: "anmelden", code, email, einwilligung }) });
+    const d = await r.json();
+    if (d.ok) {
+      show("ok", "<strong>Geschafft!</strong>Deine Karte Nr. " + String(d.nr).padStart(2, "0") + " ist angemeldet. Viel Glück bei der Verlosung!");
+      form.querySelectorAll("input").forEach(i => { if (i.type !== "checkbox") i.value = ""; else i.checked = false; });
+    } else {
+      show("bad", TEXT[d.fehler] || TEXT.anfrage);
+    }
+  } catch (err) {
+    show("bad", "Keine Verbindung zum Server. Prüf bitte deine Internetverbindung und versuch es noch einmal.");
+  } finally {
+    send.disabled = false; send.textContent = "Code anmelden";
+  }
+});
+</script>
+</body>
+</html>
